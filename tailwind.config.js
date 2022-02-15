@@ -1,0 +1,14 @@
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require('daisyui')
+  ],
+  daisyui: {
+    themes: ["dracula", "cupcake", "dark", "cmyk"],
+  }
+}
