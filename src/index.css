@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
+  padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,6 +13,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #000004;
   height: 100vh;
+  overflow-x: hidden;
+}
+
+body, .stick-footer-wrapper {
+  min-height: 100vh;
 }
 
 code {
