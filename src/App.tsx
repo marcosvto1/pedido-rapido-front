@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { AuthProvider, RequireAuth } from './contexts/AuthContext';
 import AttendancePage from './pages/attendance';
+import MenuPage from './pages/attendance/menu';
+import TablePage from './pages/attendance/tables';
 import SignInPage from './pages/auth/sign_in';
 
 function App() {
@@ -14,6 +16,12 @@ function App() {
           <RequireAuth>
             <AttendancePage />
           </RequireAuth>
+        }></Route>
+        <Route path="/app/tables" element={
+           <TablePage />
+        }></Route>
+        <Route path="/app/menu" element={
+           <MenuPage />
         }></Route>
 
         <Route path="/admin" element={
