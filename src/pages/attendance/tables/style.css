@@ -1,0 +1,23 @@
+.item-table {
+  margin-top: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: crescendo 1.5s alternate ease-in;
+  transition: 0.4s all;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.item-table:hover {
+  cursor: pointer;
+  transform: scale(1.1)
+}
+
+.heading-1 {
+  font-size: 4rem;
+}
