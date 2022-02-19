@@ -6,6 +6,7 @@ import AttendancePage from './pages/attendance';
 import MenuPage from './pages/attendance/menu';
 import TablePage from './pages/attendance/tables';
 import SignInPage from './pages/auth/sign_in';
+import KitchensPage from './pages/cook/kitchens';
 
 function App() {
   return (
@@ -28,6 +29,12 @@ function App() {
           <Route path="/app/:id/menu" element={
             <OrderProvider>
               <MenuPage />
+            </OrderProvider>
+          }></Route>
+
+          <Route path="/app/kitchens" element={
+            <OrderProvider>
+              <KitchensPage />
             </OrderProvider>
           }></Route>
 

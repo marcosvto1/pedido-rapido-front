@@ -4,6 +4,7 @@ import { IProduct, useOrder } from "../../../contexts/OrderContext";
 import ProductItem from "./ProductItem";
 import Logo from '../../../assets/logo.png'
 import './style.css'
+import { CategoryService } from "../../../services/category";
 
 const ProductList = ({ category }: { category: number }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -15,44 +16,31 @@ const ProductList = ({ category }: { category: number }) => {
     setProducts([]);
     setLoading(true);
     (async () => {
-      await (new Promise((resolve, reject) => {
-        setTimeout(resolve, 1500);
-      }))
-      setProducts([
-        {
-          id: 1,
-          name: 'Product X',
-          image_url: "https://api.lorem.space/image/burger?w=250&h=250",
-          price: 45.45,
-          category_id: 1
-        },
-        {
-          id: 1,
-          name: 'Product Y',
-          image_url: "https://api.lorem.space/image/burger?w=250&h=250",
-          price: 445.565,
-          category_id: 2
-        }
-      ])
+      // await (new Promise((resolve, reject) => {
+      //   setTimeout(resolve, 1500);
+      // }))
+      const response = await CategoryService.getProductByCategory(category)
+      // [
+      //   {
+      //     id: 1,
+      //     name: 'Product X',
+      //     image_url: "https://api.lorem.space/image/burger?w=250&h=250",
+      //     price: 45.45,
+      //     category_id: 1
+      //   },
+      //   {
+      //     id: 1,
+      //     name: 'Product Y',
+      //     image_url: "https://api.lorem.space/image/burger?w=250&h=250",
+      //     price: 445.565,
+      //     category_id: 2
+      //   }
+      // ]
+      setProducts([...response.products])
       setLoading(false)
     })();
   }, [category])
 
-  const onAddProductCart = (productId: number) => {
-    order.addItemCart({
-      product: {
-        id: productId,
-        name: "Product",
-        price: 45.45,
-        image_url: 'https://api.lorem.space/image/burger?w=100&h=100',
-        category_id: 1
-      },
-      quantity: 1
-    });
-    toast.success("Produto adicionado!", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
-  }
 
   if (loading) {
     return <div className="loading" >

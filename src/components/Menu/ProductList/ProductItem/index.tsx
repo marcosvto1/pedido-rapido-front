@@ -10,14 +10,15 @@ type ProductItemProp = {
 const ProductItem = ({product}: ProductItemProp) => {
   const order = useOrder();
 
-  const onAddProductCart = (productId: number) => {
+  const onAddProductCart = () => {
+    console.log(product)
     order.addItemCart({
       product: {
-        id: productId,
-        name: "Product",
-        price: 45.45,
-        image_url: 'https://api.lorem.space/image/burger?w=250&h=250',
-        category_id: 1
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image_url: product.image_url,
+        category_id: product.category_id
       },
       quantity: 1
     });
@@ -37,8 +38,8 @@ const ProductItem = ({product}: ProductItemProp) => {
         <div className="justify-between card-actions w-full items-center">
           <button
             className="btn mt-2"
-            onClick={() => onAddProductCart(product.id)}
-            disabled={order.getCurrentTable()?.order.status === 'in_progress' ? true : false}
+            onClick={() => onAddProductCart()}
+            disabled={order.getCurrentTable()?.order.status === 'in_progress' || order.getCurrentTable()?.order.status === 'opened' ? true : false}
           >
             <FontAwesomeIcon icon={faCartPlus} size={'2x'} />
           </button>
