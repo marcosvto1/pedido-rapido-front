@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from '../../../assets/logo.png';
+import { CategoryService } from "../../../services/category";
 
 
 const Categories = ({ onCategorySelect }: { onCategorySelect: (category: number) => void }) => {
@@ -36,6 +37,15 @@ const Categories = ({ onCategorySelect }: { onCategorySelect: (category: number)
     },
   ]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await CategoryService.index()
+      setCategories(response.categories)
+    }
+    fetchData();
+  }, []);
+
+
   const handleCategory = (id: number) => {
     const categoriesFiltered = categories.map((item) => ({
       ...item,
@@ -52,7 +62,7 @@ const Categories = ({ onCategorySelect }: { onCategorySelect: (category: number)
         <div className="mt-2">{category.title}</div>
       </div>
     }
-    return <div onClick={() => handleCategory(category.id)} className="bg-base-100  hover:bg-base-200 cursor-pointer p-4 text-white flex flex-col justify-center transition ease-in-out" style={{ wordBreak: 'break-word', fontSize: '10px' }} key={category.id}>
+    return <div onClick={() => handleCategory(category.id)} className="bg-base-100 hover:bg-base-200 cursor-pointer p-4 text-white flex flex-col justify-center transition ease-in-out" style={{ wordBreak: 'break-word', fontSize: '10px' }} key={category.id}>
       <img src={category.image_url} className="mask mask-circle" alt={category.title} />
       <div className="mt-2 font-medium">{category.title}</div>
     </div>

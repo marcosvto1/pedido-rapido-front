@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { OrderService } from "../services/order";
+import { TableService } from "../services/tables";
 
 export interface IProduct {
   id: number;
@@ -9,6 +12,14 @@ export interface IProduct {
   category_id: number;
 }
 
+export enum OrderStatus {
+  AVAILABLE="available",
+  OPENED="opened",
+  IN_PROGRESS="in_progress",
+  CANCELED="canceled",
+  READY="ready",
+  FINISH="finish"
+}
 export interface IOrderItem {
   product: IProduct;
   quantity: number;
@@ -24,8 +35,9 @@ export type OrderItemType = {
 }
 
 export type OrderType = {
+  id?: number,
   items: OrderItemType[];
-  status: 'in_progress' | 'opened' | 'finished' | undefined,
+  status: OrderStatus
   observation?: string;
 }
 
@@ -46,11 +58,12 @@ export interface IOrderContext {
   createOrder(): void;
   finishOrder(): void;
   calculateTotal(): number;
+  updateTable(table: TableItemType): void
 }
 
 const CartContext = createContext<IOrderContext>({
   tables: [],
-  getCurrentTable: () => ({ table: 1, status: 'available', order: {items: [], status: undefined}}),
+  getCurrentTable: () => ({ table: 1, status: 'available', order: {items: [], status: OrderStatus.OPENED}}),
   addItemCart: (item: IOrderItem) => {},
   incrementQtd:(productId: number) => {},
   decrementQtd:(productId: number) => {},
@@ -58,7 +71,8 @@ const CartContext = createContext<IOrderContext>({
   addObservation: (value: string) => {},
   createOrder: () => {},
   finishOrder: () => {},
-  calculateTotal: () => 0
+  calculateTotal: () => 0,
+  updateTable: (table: TableItemType) => {}
 })
 
 export const useOrder = () => {
@@ -73,25 +87,22 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     initTables();
   }, [])
 
-  const initTables = () => {
-    setTables([
-      {
+  const initTables = async () => {
+    const { tables } = await TableService.index(); 
+    if (tables) {
+      const tablesItems = tables.map((table: any) => ({
         order: {
-          items: [],
-          status: 'opened'
+          id: table.order?.id ?? undefined,
+          status: table.order?.status || OrderStatus.OPENED,
+          items: []
         },
-        status: 'available',
-        table: 1
-      },
-      {
-        order: {
-          items: [],
-          status: 'opened'
-        },
-        status: 'available',
-        table: 2
-      },
-    ])
+        status: table.status,
+        table: table.table
+      }))
+      setTables([
+        ...tablesItems
+      ])
+    }  
   }
 
   const addObservation = (value: string) => {
@@ -169,25 +180,47 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     updateTable(tableCurrent);
   }
 
-  const createOrder = () => {
+  const createOrder = async () => {
     const tableCurrent = getCurrentTable();
     if (!tableCurrent) return;
 
-    tableCurrent.order.status = 'in_progress';
-    tableCurrent.status = 'in_use';
-
-    updateTable(tableCurrent);
+    try {
+      const result = await OrderService.create({
+        table: tableCurrent.table,
+        order_items_attributes: tableCurrent.order.items.map((el) => ({ product_id: el.product.id, quantity: el.quantity })),
+        detail: tableCurrent.order.observation,
+        status: 1
+      });
+      if (result.order.id) {
+        tableCurrent.order.status = OrderStatus.IN_PROGRESS
+        tableCurrent.status = 'in_use';
+        tableCurrent.order.id = result.order.id;
+        updateTable(tableCurrent);
+      }
+    } catch (error) {
+      toast.error('Falha ao realizar pedido');
+    }
   }
   
-  const finishOrder = () => {
+  const finishOrder =  async () => {
     const tableCurrent = getCurrentTable();
     if (!tableCurrent) return;
 
     tableCurrent.order.items = [];
     tableCurrent.order.observation = '';
-    tableCurrent.order.status = 'opened';
+    tableCurrent.order.status = OrderStatus.CANCELED;
     tableCurrent.status = 'available';
 
+    if (tableCurrent.order.id) {
+      const result = await OrderService.update(tableCurrent.order.id,{
+        table: tableCurrent.table,
+        order_items_attributes: tableCurrent.order.items.map((el) => ({ product_id: el.product.id, quantity: el.quantity })),
+        detail: tableCurrent.order.observation,
+        status: OrderStatus.CANCELED
+      });
+      console.log(result);
+    }
+    
     updateTable(tableCurrent);
   }
 
@@ -208,7 +241,8 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     addObservation,
     createOrder,
     finishOrder,
-    calculateTotal
+    calculateTotal,
+    updateTable
   }
 
   return <CartContext.Provider value={value}>
