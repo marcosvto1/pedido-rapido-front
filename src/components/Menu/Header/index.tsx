@@ -24,7 +24,7 @@ const MenuHeader = (props: any) => {
   }
 
   function renderButtonCart() {
-    <button onClick={() => {
+    return <button onClick={() => {
       setZIndexHabilit(true)
       props.onOpenCart()
     }} className="btn btn-sm btn-primary border-primary gap-2 shadow-lg shadow-primary/10 ">
