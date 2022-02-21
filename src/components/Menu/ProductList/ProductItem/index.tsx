@@ -2,6 +2,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { IProduct, useOrder } from "../../../../contexts/OrderContext";
+import { formatCurrency } from "../../../../util/currency";
 
 type ProductItemProp = {
   product: IProduct
@@ -43,7 +44,7 @@ const ProductItem = ({product}: ProductItemProp) => {
           >
             <FontAwesomeIcon icon={faCartPlus} size={'2x'} />
           </button>
-          <p className="text-right text-lg font-bold text-white">R$ {product.price.toFixed()}</p>
+          <p className="text-right text-lg font-bold text-white">{formatCurrency(Number(product.price) || 0)}</p>
         </div>
       </div>
     </div>

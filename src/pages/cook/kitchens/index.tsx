@@ -1,6 +1,8 @@
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import { OrderStatus } from "../../../contexts/OrderContext";
 import { OrderService } from "../../../services/order";
 import OrderList from "./order_list";
@@ -32,6 +34,15 @@ const KitchensPage = () => {
     doing: [],
     done: []
   })
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    const signOutSuccess = await auth.signOut();
+    if (signOutSuccess) {
+      navigate('/auth/sign_in');
+    }
+  }
 
   const fetchData = async () => {
     const result = await OrderService.index();
@@ -64,7 +75,9 @@ const KitchensPage = () => {
   return <div className="p-2 bg-black">
     <div className="flex justify-between p-2 items-center">
       <h1 className="font-bold text-2xl">Kitchen's Kanban 👨‍🍳</h1>
-      <FontAwesomeIcon icon={faUser} size={'2x'} />
+      <button className="btn" onClick={handleSignOut}>
+        <FontAwesomeIcon icon={faSignOut} size={'1x'} />
+      </button>
     </div>
 
     <div className="flex gap-8 mt-2 p-2">

@@ -93,7 +93,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
       const tablesItems = tables.map((table: any) => ({
         order: {
           id: table.order?.id ?? undefined,
-          status: table.order?.status || OrderStatus.OPENED,
+          status: table.order?.status || OrderStatus.AVAILABLE,
           items: []
         },
         status: table.status,

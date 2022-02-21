@@ -9,6 +9,7 @@ import MenuHeader from "../../../components/Menu/Header";
 import { OrderItemType, OrderStatus, useOrder } from "../../../contexts/OrderContext";
 import Categories from "../../../components/Menu/Categories";
 import ProductList from "../../../components/Menu/ProductList";
+import { formatCurrency } from "../../../util/currency";
 
 Modal.setAppElement("#root")
 
@@ -135,7 +136,7 @@ const MenuPage = () => {
                               <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                             </button>
                           </div>
-                          <p className="text-sm font-bold text-white">R$ {Number(e.product.price * e.quantity).toFixed(2)}</p>
+                          <p className="text-sm font-bold text-white"> { formatCurrency(Number(e.product.price * e.quantity))}</p>
                         </div>
                       </>
                   }
@@ -149,7 +150,7 @@ const MenuPage = () => {
         <div className="mt-6">
           <div className="flex justify-between mb-2">
             <div className="font-semibold">Total</div>
-            <div className="font-bold text-white">R$ {order.calculateTotal().toFixed(2)}</div>
+            <div className="font-bold text-white"> {formatCurrency(order.calculateTotal())}</div>
           </div>
           <textarea
             className="textarea textarea-ghost w-full mb-1"

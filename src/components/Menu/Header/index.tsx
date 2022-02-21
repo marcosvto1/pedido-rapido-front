@@ -40,6 +40,8 @@ const MenuHeader = (props: any) => {
   let header = "header pr-7 pt-2  border-1 border-primary-focus w-full fixed text-right text-primary"
   header += zIndexHabilit ? "header pr-7 pt-2 border-1 border-primary-focus w-full fixed text-right text-primary z-10" : ""
 
+  console.log(order.getCurrentTable()?.order.status)
+
   return <>
     <div className={header}>
       {renderButtonPrevious()}
