@@ -6,8 +6,7 @@ interface LayoutProps {
 }
 
 const LayoutAdmin = ({ children }: LayoutProps) => {
-  return <div>
-
+  return <div className="mb-4">
     <div className="h-screen drawer drawer-mobile w-full">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="flex flex-col drawer-content">
@@ -18,7 +17,6 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
       </div>
       <Sidebar />
     </div>
-
   </div>
 
 }

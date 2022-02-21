@@ -94,7 +94,7 @@ const CategoryFormPage = () => {
           setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
-            <div className="flex gap-8 items-center">
+            <div className="flex gap-2 items-center flex-wrap">
               <div className="flex flex-col justify-center items-center p-2">
                 <div className="avatar mb-4">
                   <div className="w-24 rounded-xl">
@@ -122,7 +122,7 @@ const CategoryFormPage = () => {
 
               </div>
 
-              <div>
+              <div className="w-full">
                 <div className="form-control w-full max-w-xs">
                   <label className="label">
                     <span className="label-text">Nome</span>
