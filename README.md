@@ -1,6 +1,6 @@
 # Projeto Frontend GreenFood HACKATHON da OneBitCode
 
-## Projeto Feito: React, Tailwindcss
+## Tech: React, Tailwindcss
 
 ## Execução do Projeto
 
