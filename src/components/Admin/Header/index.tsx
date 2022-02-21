@@ -30,7 +30,7 @@ const Header = () => {
       <div className="flex-1 px-2 mx-2 text-lg font-bold text-white">
         <img src={Logo} alt="" width={80} />
       </div>
-      <div className="flex-none hidden lg:block">
+      <div className="flex-none lg:block">
         <ul className="menu menu-horizontal">
           <li>
             <button className="btn" onClick={handleSignOut}>
