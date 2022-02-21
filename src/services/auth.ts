@@ -11,6 +11,9 @@ const AuthService = {
       email,
       password
     }).then((response) => response.data)
+  },
+  sign_out: () => {
+    return api.delete('/auth/sign_out').then((response) => response.data)
   }
 }
 

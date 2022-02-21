@@ -1,9 +1,10 @@
 import Axios from 'axios'
 import { toast } from 'react-toastify';
+import history from './history';
 import { authRequestIntercept, authResponseIntercept } from './interceptors';
 
 const api = Axios.create({
-  baseURL: 'http://localhost:3001'
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 api.interceptors.response.use(authResponseIntercept, handleResponseError)
@@ -26,7 +27,8 @@ function handleResponseError(error: any) {
   }
 
   if (error.response && ([401, 403].includes(error.response.status))) {
-    window.location  = window.location.protocol + "//" + window.location.host + "/auth/sign-in" as any
+    //window.location  = window.location.protocol + "//" + window.location.host + "/" as any
+    history.replace("/auth/sign_in"); // <-- navigate.
   }
 
   throw error

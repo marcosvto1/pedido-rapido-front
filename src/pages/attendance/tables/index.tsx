@@ -5,6 +5,9 @@ import './style.css'
 import Logo from '../../../assets/logo.png';
 import { useEffect, useState } from "react";
 import { TableService } from "../../../services/tables";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const TablePage = () => {
 
@@ -12,7 +15,7 @@ const TablePage = () => {
   const app = useOrder();
   const [tables, setTables] = useState<any[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-
+  const auth = useAuth();
 
   const fetchData = async () => {
     setLoading(true);
@@ -29,12 +32,17 @@ const TablePage = () => {
     return () => clearInterval(intervalId);
   }, [app.tables])
 
+  const handleSignOut = async () => {
+    const signOutSuccess = await auth.signOut();
+    if (signOutSuccess) {
+      navigate('/auth/sign_in');
+    }
+  }
+
   const handlerTable = (table: number) => {
-    console.log('mesas', tables);
-    console.log('mesa selecionada',table)
     const tableSelected = tables.find((item) => item.table === table);
     if (tableSelected) {
-      console.log('entrou aqui');
+      console.log(tableSelected);
       const tableUpdated = {
         ...tableSelected, order: tableSelected.order === null ? {
           items: [],
@@ -43,33 +51,36 @@ const TablePage = () => {
           observation: ''
         } : tableSelected.order
       };
-      console.log(tableUpdated);
       app.updateTable(tableUpdated);
     }
     navigate(`/app/${table}/menu`);
   }
 
-  const RenderTable = (key: number, status: 'in_use' | 'available') => {
+  function renderTableItem(key: number, status: 'in_use' | 'available') {
     if (status === 'available') {
-      return <div key={key} onClick={() => handlerTable(key)} className="item-table border-2 border-primary-focus text-primary">{key}</div>
+      return <div key={key} onClick={() => handlerTable(key)} className="item-table border-2 border-primary-focus text-primary cursor-pointer">{key}</div>
     }
-    return <div key={key} onClick={() => handlerTable(key)} className="item-table bg-primary text-black">{key}</div>
+    return <div key={key} onClick={() => handlerTable(key)} className="item-table bg-primary text-black cursor-pointer">{key}</div>
   }
 
+  function renderHeader() {
+    const classAnimate = loading ? "text-center animate-ping" : "text-center";
+    return <div className=' flex flex-row justify-between p-2'>
+      <img src={Logo} alt="Logo" width={150} height={100} className={classAnimate} />
+      <button className="btn" onClick={handleSignOut}>
+        <FontAwesomeIcon icon={faSignOut} size={'1x'} />
+      </button>
+    </div>
+  }
+
+
   return (
-    <div className='flex flex-col'>
-      {
-        loading ? <div className=' flex flex-row justify-center p-2'>
-          <img src={Logo} alt="Logo" width={150} height={100} className="animate-ping" />
-        </div>
-          : <div className=' flex flex-row justify-center p-2'>
-            <img src={Logo} alt="Logo" width={150} height={100} />
-          </div>
-      }
+    <div className='flex flex-col p-4'>
+      {renderHeader()}
 
       <div className="grid grid-cols-4 md:grid-cols-8 gap-4 p-4 ">
         {tables.map((item) => {
-          return RenderTable(item.table, item.status)
+          return renderTableItem(item.table, item.status)
         })}
       </div>
     </div>

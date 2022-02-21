@@ -98,7 +98,7 @@ const CategoryFormPage = () => {
               <div className="flex flex-col justify-center items-center p-2">
                 <div className="avatar mb-4">
                   <div className="w-24 rounded-xl">
-                    <img src={imagePreview} alt="xzs" />
+                    <img src={imagePreview} alt="" />
                   </div>
                 </div>
                 <div className="form-control mb-2">

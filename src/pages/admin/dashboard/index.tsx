@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { DashboardService } from "../../../services/dashboard"
+import { formatCurrency } from "../../../util/currency";
 
 const DashboardPage = () => {
   const [ordersFinished, setOrdersFinished] = useState<{ qtd: number, billing: number }>({
@@ -60,17 +61,17 @@ const DashboardPage = () => {
 
         <div className="stat bg-primary text-black">
           <div className="stat-title">Finalizados</div>
-          <div className="stat-value">R$ {Number(ordersFinished.billing).toFixed(2) ?? 0}</div>
+          <div className="stat-value">{formatCurrency(Number(ordersFinished.billing)) ?? 0.00}</div>
         </div>
 
         <div className="stat bg-base-200">
           <div className="stat-title">Cancelados</div>
-          <div className="stat-value">R$ - {Number(ordersCanceled.billing).toFixed(2) ?? 0}</div>
+          <div className="stat-value">- {formatCurrency(Number(ordersCanceled.billing)) ?? 0.00}</div>
         </div>
 
         <div className="stat">
           <div className="stat-title">Previsto</div>
-          <div className="stat-value">R$ + {Number(ordersOpened.billing).toFixed(2) ?? 0}</div>
+          <div className="stat-value">+ {formatCurrency(Number(ordersOpened.billing))?? 0}</div>
         </div>
       </div>
 
