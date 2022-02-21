@@ -95,7 +95,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         order: {
           id: table.order?.id ?? undefined,
           status: table.order?.status || OrderStatus.AVAILABLE,
-          items: []
+          items: table.order?.items || []
         },
         status: table.status,
         table: table.table

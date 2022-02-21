@@ -72,9 +72,8 @@ const TablePage = () => {
     </div>
   }
 
-
   return (
-    <div className='flex flex-col p-4'>
+    <div className='flex flex-col p-2 lg:p-8'>
       {renderHeader()}
 
       <div className="grid grid-cols-4 md:grid-cols-8 gap-4 p-4 ">
