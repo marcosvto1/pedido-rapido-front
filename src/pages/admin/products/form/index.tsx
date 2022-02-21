@@ -50,7 +50,6 @@ const ProductFormPage = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      console.log(params)
       if (params.id) {
         const result = await ProductService.show(params.id)
         if (result.product) {
@@ -69,7 +68,7 @@ const ProductFormPage = () => {
       }
     }
     fetchProduct();
-  }, [params.id])
+  }, [params])
 
 
   const handleSubmit = async (values: any, { setSubmitting }: any) => {

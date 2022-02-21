@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { OrderService } from "../services/order";
 import { TableService } from "../services/tables";
@@ -146,6 +146,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         if (params.id !== undefined) {
           return el.table === parseInt(params.id);
         }
+        return el;
       })
       return currentTable;
     }

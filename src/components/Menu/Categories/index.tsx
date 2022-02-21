@@ -15,7 +15,7 @@ const Categories = ({ onCategorySelect }: { onCategorySelect: (category: number)
       ])
     }
     fetchData();
-  }, []);
+  }, [onCategorySelect]);
 
 
   const handleCategory = (id: number) => {

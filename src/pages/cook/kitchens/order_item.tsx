@@ -21,12 +21,11 @@ const OrderItem = ({ index, order: order_param, type, whenDoneHandleCheck, updat
   });
 
   useEffect(() => {
-    console.log(order.order_items)
     setOrder({
       ...order_param,
       order_items: order.order_items.length > 0 ? [...order.order_items] : [...order_param.order_items]
     });
-  }, [order_param])
+  }, [order.order_items, order_param])
 
 
   const onChangeStatusOrder = async (status: OrderStatus) => {
