@@ -8,7 +8,7 @@ type ProductItemProp = {
   product: IProduct
 }
 
-const ProductItem = ({product}: ProductItemProp) => {
+const ProductItem = ({ product }: ProductItemProp) => {
   const order = useOrder();
 
   const onAddProductCart = () => {
@@ -35,7 +35,15 @@ const ProductItem = ({product}: ProductItemProp) => {
         <h2 className="card-title text-white">
           {product.name}
         </h2>
-        <p></p>
+        <div tabIndex={0} className="collapse">
+          <input type="checkbox" />
+          <div className="collapse-title text-sm text-white">
+            Descrição
+          </div>
+          <div className="collapse-content">
+            <p>{product.description}</p>
+          </div>
+        </div>
         <div className="justify-between card-actions w-full items-center">
           <button
             className="btn mt-2"

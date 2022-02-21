@@ -50,7 +50,7 @@ const OrderItem = ({ index, order: order_param, type, whenDoneHandleCheck, updat
       case "doing":
         return <button className="btn btn-sm btn-primary" disabled={disableBtn()} onClick={() => onChangeStatusOrder(OrderStatus.READY)}>Finalizar</button>
       case "done":
-        return  <button className="btn btn-sm btn-primary" onClick={() => onChangeStatusOrder(OrderStatus.FINISH)}>Entregue</button>
+        return <button className="btn btn-sm btn-primary" onClick={() => onChangeStatusOrder(OrderStatus.FINISH)}>Entregue</button>
     }
   }
 
@@ -60,7 +60,7 @@ const OrderItem = ({ index, order: order_param, type, whenDoneHandleCheck, updat
 
   function unCheckPreper(indexItem: number) {
     order.order_items[indexItem].done = !order.order_items[indexItem].done
-    setOrder({...order})
+    setOrder({ ...order })
   }
 
   return (
@@ -80,20 +80,26 @@ const OrderItem = ({ index, order: order_param, type, whenDoneHandleCheck, updat
           <div className="collapse-title text-lg font-medium">
             Pedido
           </div>
+
           <div className="collapse-content">
             <div>
+              {order_param.detail &&
+                <p className="text-sm p-2 bg-base-200 rounded-md mb-1	text-white">
+                  {order_param.detail}
+                </p>
+              }
             </div>
             {order.order_items.map((item, index) =>
               <div key={index} className="flex justify-between items-center">
-                { type === 'doing' && 
-                <div className="form-control">
-                  <label className="cursor-pointer label">
-                    <input type="checkbox" defaultChecked={item.done} onClick={() => unCheckPreper(index)} className="checkbox checkbox-secondary" />
-                  </label>
-                </div>
+                {type === 'doing' &&
+                  <div className="form-control">
+                    <label className="cursor-pointer label">
+                      <input type="checkbox" defaultChecked={item.done} onClick={() => unCheckPreper(index)} className="checkbox checkbox-secondary" />
+                    </label>
+                  </div>
                 }
-                <div className="text-md text-right">{item.quantity} X </div>
-                <div className="text-sm text-right">{item.product.name}</div>
+                <div className="text-md text-center text-white flex-1">{item.quantity} X </div>
+                <div className="text-sm text-right text-white">{item.product.name}</div>
               </div>
             )}
           </div>

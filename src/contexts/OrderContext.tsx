@@ -10,6 +10,7 @@ export interface IProduct {
   price: number,
   image_url: string;
   category_id: number;
+  description?: string;
 }
 
 export enum OrderStatus {

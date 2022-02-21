@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CategoryService } from "../../../services/category";
 
 const Categories = ({ onCategorySelect }: { onCategorySelect: (category: number) => void }) => {
   const [categories, setCategories] = useState<{ id: number, title: string, image_url: string, active: boolean}[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await CategoryService.index()
-      const categories = response.categories;
-      categories[0].active = true
-      onCategorySelect(categories[0].id)
-      setCategories([
-        ...categories
-      ])
-    }
-    fetchData();
-  }, [onCategorySelect]);
+  const fetchData = useCallback(async () =>{
+    const response = await CategoryService.index()
+    const categories = response.categories;
+    categories[0].active = true
+    setCategories([
+      ...categories
+    ])
+  }, [])
 
+  useEffect(() => {
+    fetchData();    
+  }, [fetchData]);
+
+  
 
   const handleCategory = (id: number) => {
     const categoriesFiltered = categories.map((item) => ({
