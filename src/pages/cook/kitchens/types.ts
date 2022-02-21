@@ -11,7 +11,8 @@ export type KitchensOrderType = {
   id: number;
   table: number;
   status: OrderStatus,
-  order_items: KitchensOrderItemType[]
+  order_items: KitchensOrderItemType[],
+  detail?: string;
 }
 
 export type KitchensState = {

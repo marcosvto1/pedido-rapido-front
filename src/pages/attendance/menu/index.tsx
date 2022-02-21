@@ -34,7 +34,7 @@ const MenuPage = () => {
   const [openModalCart, setOpenModalCart] = useState(false);
   const [openModalConfirmFinishTable, setOpenModalConfirmFinishTable] = useState(false);
   const [productAsRemovable, setProductAsRemovable] = useState<number>(-1)
-  const [category, setCategory] = useState<number>(-1)
+  const [category, setCategory] = useState<number>(1)
 
   const navigate = useNavigate();
 

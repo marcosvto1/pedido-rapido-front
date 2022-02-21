@@ -18,8 +18,9 @@ type OrderItemStateType = {
 type OrderStateType = {
   id: number;
   table: number;
-  status: OrderStatus,
-  order_items: OrderItemStateType[]
+  status: OrderStatus;
+  order_items: OrderItemStateType[];
+  detail: string;
 }
 
 type KitchensState = {
