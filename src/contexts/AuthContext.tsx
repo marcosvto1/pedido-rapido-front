@@ -28,6 +28,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signIn = async ({ email, password }: AuthParams) => {
     const response = await AuthService.sign_in({ email, password});
     setUser(response.data);
+   //setLocalStorage(response.data)
+    return response.data.type_profile;
+  }
+
+  const setLocalStorage = (jsonData: any) => {
+    const json = JSON.stringify(jsonData)
+    localStorage.setItem('session', json);
   }
 
   const signOut = () => {}

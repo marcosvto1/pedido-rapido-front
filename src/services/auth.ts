@@ -10,7 +10,7 @@ const AuthService = {
     return api.post('/auth/sign_in', {
       email,
       password
-    });
+    }).then((response) => response.data)
   }
 }
 
