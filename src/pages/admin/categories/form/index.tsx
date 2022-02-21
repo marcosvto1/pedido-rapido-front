@@ -35,7 +35,7 @@ const CategoryFormPage = () => {
       }
     }
     fetchCategory();
-  }, [params.id])
+  }, [params])
 
 
   const handleSubmit = async (values: any, { setSubmitting }: any) => {

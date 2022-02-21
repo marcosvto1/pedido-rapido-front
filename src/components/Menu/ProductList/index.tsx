@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { IProduct, useOrder } from "../../../contexts/OrderContext";
+import { IProduct } from "../../../contexts/OrderContext";
 import ProductItem from "./ProductItem";
 import Logo from '../../../assets/logo.png'
 import './style.css'
@@ -10,32 +9,12 @@ const ProductList = ({ category }: { category: number }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const order = useOrder();
 
   useEffect(() => {
     setProducts([]);
     setLoading(true);
-    (async () => {
-      // await (new Promise((resolve, reject) => {
-      //   setTimeout(resolve, 1500);
-      // }))
+    (async () => {   
       const response = await CategoryService.getProductByCategory(category)
-      // [
-      //   {
-      //     id: 1,
-      //     name: 'Product X',
-      //     image_url: "https://api.lorem.space/image/burger?w=250&h=250",
-      //     price: 45.45,
-      //     category_id: 1
-      //   },
-      //   {
-      //     id: 1,
-      //     name: 'Product Y',
-      //     image_url: "https://api.lorem.space/image/burger?w=250&h=250",
-      //     price: 445.565,
-      //     category_id: 2
-      //   }
-      // ]
       setProducts([...response.products])
       setLoading(false)
     })();

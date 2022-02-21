@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { AuthProvider, RequireAuth } from './contexts/AuthContext';
 import { OrderProvider } from './contexts/OrderContext';
