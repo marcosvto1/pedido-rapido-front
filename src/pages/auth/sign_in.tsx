@@ -21,7 +21,6 @@ const SignInPage = () => {
         email: values.email,
         password: values.password
       });
-      console.log(result);
       setLoading(false);
       setSubmitting(false);
       if (result) {

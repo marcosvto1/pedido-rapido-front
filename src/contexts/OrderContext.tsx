@@ -214,13 +214,12 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
     tableCurrent.status = 'available';
 
     if (tableCurrent.order.id) {
-      const result = await OrderService.update(tableCurrent.order.id,{
+      await OrderService.update(tableCurrent.order.id,{
         table: tableCurrent.table,
         order_items_attributes: tableCurrent.order.items.map((el) => ({ product_id: el.product.id, quantity: el.quantity })),
         detail: tableCurrent.order.observation,
         status: OrderStatus.CANCELED
       });
-      console.log(result);
     }
     
     updateTable(tableCurrent);

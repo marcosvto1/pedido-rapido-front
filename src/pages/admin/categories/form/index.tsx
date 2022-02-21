@@ -25,7 +25,6 @@ const CategoryFormPage = () => {
 
   useEffect(() => {
     const fetchCategory = async () => {
-      console.log(params)
       if (params.id) {
         const result = await CategoryService.admin.show(params.id)
         if (result.category) {
