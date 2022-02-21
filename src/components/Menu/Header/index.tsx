@@ -7,12 +7,21 @@ const MenuHeader = (props: any) => {
 
   const order = useOrder();
   const [zIndexHabilit, setZIndexHabilit] = useState(false);
+  const [animateCart, setAnimateCart] = useState(false);
 
   function renderButtonPrevious() {
     return <button onClick={props.onPreviousTables} className="btn btn-sm  btn-primary mr-2 gap-2 shadow-lg shadow-primary/10">
       <FontAwesomeIcon icon={faArrowLeft} size={'1x'} />
     </button>
   }
+
+  useEffect(() => {
+    setAnimateCart(true);
+    (async () => {
+      await (new Promise((resolve, reject) => setTimeout(resolve, 800)));
+      setAnimateCart(false);//
+    })()
+  }, [order.tables])
 
   function renderButtonFinishOrder() {
     if (order.getCurrentTable()?.order.status === OrderStatus.AVAILABLE) {
@@ -24,12 +33,16 @@ const MenuHeader = (props: any) => {
   }
 
   function renderButtonCart() {
+    let classBadge = "badge badge-primary badge-sm";
+    if (animateCart) {
+      classBadge = classBadge + " animate-ping"
+    }
     return <button onClick={() => {
       setZIndexHabilit(true)
       props.onOpenCart()
-    }} className="btn btn-sm btn-primary border-primary gap-2 shadow-lg shadow-primary/10 ">
+    }} className="btn btn-sm btn-primary border-primary gap-2 shadow-lg shadow-primary/10  ">
       <FontAwesomeIcon className='text-primary-content' icon={faCartShopping} size={'1x'} />
-      <div className="badge badge-primary badge-sm">+{order?.getCurrentTable()?.order.items.length}</div>
+      <div className={classBadge}>+{order?.getCurrentTable()?.order.items.length}</div>
     </button>
   }
 
