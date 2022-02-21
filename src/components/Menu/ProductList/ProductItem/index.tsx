@@ -12,7 +12,6 @@ const ProductItem = ({ product }: ProductItemProp) => {
   const order = useOrder();
 
   const onAddProductCart = () => {
-    console.log(product)
     order.addItemCart({
       product: {
         id: product.id,

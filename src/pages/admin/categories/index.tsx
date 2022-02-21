@@ -31,7 +31,6 @@ const CategoriesPage = () => {
   }
 
   function renderStatus(status?: number | string) {
-    console.log(status);
     if (status === undefined || status === null) {
       return <div className="badge badge-primary">Ativo</div>;
     }

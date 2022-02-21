@@ -42,7 +42,6 @@ const TablePage = () => {
   const handlerTable = (table: number) => {
     const tableSelected = tables.find((item) => item.table === table);
     if (tableSelected) {
-      console.log(tableSelected);
       const tableUpdated = {
         ...tableSelected, order: tableSelected.order === null ? {
           items: [],
