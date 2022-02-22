@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { ProductService } from "../../../../services/product";
 import { CategoryService } from "../../../../services/category";
-
+import DefaultPreviewImage from "../../../../components/Admin/shared/DefaultPreviewImage";
+import CustomButton from "../../../../components/Admin/shared/LoadingButton";
 
 type CategoriesStateType = {
   id?: number;
@@ -142,11 +143,7 @@ const ProductFormPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="flex gap-2 items-center flex-wrap">
               <div className="flex flex-col  justify-center items-center p-2">
-                <div className="avatar mb-4">
-                  <div className="w-24 rounded-xl">
-                    <img src={imagePreview} alt="" />
-                  </div>
-                </div>
+                <DefaultPreviewImage imageUrl={imagePreview}  />
                 <div className="form-control mb-2">
                   <input type="file" className="file" name="image" onChange={(e) => {
                     if (e.target.files) {
@@ -255,11 +252,10 @@ const ProductFormPage = () => {
 
             <div className="mt-4 flex gap-2">
               <Link to="/admin/products/" className="btn">Cancelar</Link>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting || !isValid}>Salvar</button>
+              <CustomButton loading={isSubmitting} disabled={isSubmitting}>Salvar</CustomButton>
             </div>
           </form>)}
       </Formik>
-
     </div>
   </div>)
 }

@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { OrderStatus, useOrder } from '../../../contexts/OrderContext';
 import './style.css'
 
-import Logo from '../../../assets/logo.png';
 import { useEffect, useState } from "react";
 import { TableService } from "../../../services/tables";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
@@ -10,20 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const TablePage = () => {
-
   const navigate = useNavigate();
   const app = useOrder();
   const [tables, setTables] = useState<any[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
   const auth = useAuth();
 
   const fetchData = async () => {
-    setLoading(true);
     const result = await TableService.index();
     if (result.tables) {
       setTables(result.tables);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -63,9 +58,8 @@ const TablePage = () => {
   }
 
   function renderHeader() {
-    const classAnimate = loading ? "text-center animate-ping" : "text-center";
     return <div className=' flex flex-row justify-between p-2'>
-      <img src={Logo} alt="Logo" width={150} height={100} className={classAnimate} />
+      <h1 className="text-3xl font-bold mr-8 mt-6">Mesas</h1>
       <button className="btn" onClick={handleSignOut}>
         <FontAwesomeIcon icon={faSignOut} size={'1x'} />
       </button>

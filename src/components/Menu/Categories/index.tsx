@@ -31,12 +31,12 @@ const Categories = ({ onCategorySelect }: { onCategorySelect: (category: number)
   const renderCategoryItem = (category: { id: number, title: string, image_url: string, active: boolean }) => {
     if (category.active) {
       return <div onClick={() => handleCategory(category.id)} className="bg-black p-4  text-white border-l-2 border-primary flex flex-col justify-center" style={{ wordBreak: 'break-word', fontSize: '10px' }} key={category.id}>
-        <img src={category.image_url} className="mask mask-circle" alt={category.title} />
+        <img src={category.image_url} className="w-32 mask mask-circle" alt={category.title} />
         <div className="mt-2 text-primary font-semibold">{category.title}</div>
       </div>
     }
     return <div onClick={() => handleCategory(category.id)} className="bg-base-100 hover:bg-base-200 cursor-pointer p-4 text-white flex flex-col justify-center transition ease-in-out" style={{ wordBreak: 'break-word', fontSize: '10px' }} key={category.id}>
-      <img src={category.image_url} className="mask mask-circle" alt={category.title} />
+      <img src={category.image_url} className="w-32 mask mask-circle" alt={category.title} />
       <div className="mt-2 font-medium">{category.title}</div>
     </div>
   }
