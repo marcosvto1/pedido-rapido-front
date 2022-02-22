@@ -2,6 +2,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import DefaultPreviewImage from "../../../components/Admin/shared/DefaultPreviewImage";
 import { CategoryService } from "../../../services/category";
 
 type CategoriesStateType = {
@@ -43,7 +44,7 @@ const CategoriesPage = () => {
   return (<>
     <h1 className="text-lg text-white font-bold">Gestão de Categorias</h1>
     <div className="flex flex-col mt-4">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between gap-1 ">
         <input type="text" placeholder="Buscar por nome" onChange={(e) => handlerQuery(e)} className="input input-bordered w-full max-w-xs" />
         <Link to="new" className="btn btn-primary">
           Novo
@@ -65,7 +66,7 @@ const CategoriesPage = () => {
                 <th>
                   <div className="avatar">
                     <div className="w-24 mask mask-squircle">
-                      <img src={e.image_url} alt="categoria" />
+                      <DefaultPreviewImage imageUrl={e.image_url} />
                     </div>
                   </div>
                 </th>

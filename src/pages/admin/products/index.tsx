@@ -2,6 +2,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import DefaultPreviewImage from "../../../components/Admin/shared/DefaultPreviewImage";
 import { ProductService } from "../../../services/product";
 
 type ProductsStateType = {
@@ -72,7 +73,7 @@ const ProductsPage = () => {
                 <th>
                   <div className="avatar">
                     <div className="w-24 mask mask-squircle">
-                      <img src={e.image_url} alt="categoria" />
+                      <DefaultPreviewImage imageUrl={e.image_url} />
                     </div>
                   </div>
                 </th>

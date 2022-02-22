@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import { EmployerService } from "../../../../services/employer";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import CustomButton from "../../../../components/Admin/shared/LoadingButton";
 
 
 type EmployersStateType = {
@@ -235,7 +236,7 @@ const EmployerFormPage = () => {
 
             <div className="mt-4 flex gap-2">
               <Link to="/admin/employees/" className="btn">Cancelar</Link>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting || !isValid}>Salvar</button>
+              <CustomButton type="submit" loading={isSubmitting} disabled={isSubmitting}>Salvar</CustomButton>
             </div>
           </form>)}
       </Formik>

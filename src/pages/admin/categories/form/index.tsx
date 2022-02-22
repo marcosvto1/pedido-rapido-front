@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Formik } from 'formik'
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
 import { CategoryService } from "../../../../services/category";
+import DefaultPreviewImage from "../../../../components/Admin/shared/DefaultPreviewImage";
+import CustomButton from "../../../../components/Admin/shared/LoadingButton";
 
 
 type CategoriesStateType = {
@@ -18,7 +20,7 @@ const CategoryFormPage = () => {
     status: [],
     image: null
   });
-  const [imagePreview, setImagePreview] = useState<ArrayBuffer | any>(); 
+  const [imagePreview, setImagePreview] = useState<ArrayBuffer | any>();
 
   let navigate = useNavigate();
   let params = useParams();
@@ -28,7 +30,7 @@ const CategoryFormPage = () => {
       if (params.id) {
         const result = await CategoryService.admin.show(params.id)
         if (result.category) {
-          setInitialValues({ id: result.category.id, title: result.category.title , status: result.category.status === 1 ? ["on"] : [], image: ""})
+          setInitialValues({ id: result.category.id, title: result.category.title, status: result.category.status === 1 ? ["on"] : [], image: "" })
           setImagePreview(result.category.image_url)
         }
       }
@@ -89,36 +91,26 @@ const CategoryFormPage = () => {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          isValid,
           setFieldValue
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="flex gap-2 items-center flex-wrap">
               <div className="flex flex-col justify-center items-center p-2">
-                <div className="avatar mb-4">
-                  <div className="w-24 rounded-xl">
-                    <img src={imagePreview} alt="" />
-                  </div>
-                </div>
+                <DefaultPreviewImage imageUrl={imagePreview} />
                 <div className="form-control mb-2">
                   <input type="file" className="file" name="image" onChange={(e) => {
                     if (e.target.files) {
                       setFieldValue('image', e.target.files[0]);
-
                       const fileReader = new FileReader();
-                      
                       fileReader.onload = () => {
                         if (fileReader.readyState === 2) {
                           setImagePreview(fileReader.result);
                         }
                       };
-
                       fileReader.readAsDataURL(e.target.files[0]);
                     }
-
                   }} />
                 </div>
-
               </div>
 
               <div className="w-full">
@@ -149,7 +141,7 @@ const CategoryFormPage = () => {
                       name="status"
                       onClick={handleChange}
                       checked={!!values.status.length}
-                       />
+                    />
                   </label>
                   <label className="label text-red-300 text-sm">
                     {errors.status && touched.status && errors.status}
@@ -160,12 +152,12 @@ const CategoryFormPage = () => {
 
             <div className="mt-4 flex gap-2">
               <Link to="/admin/categories/" className="btn">Cancelar</Link>
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting || !isValid}>Salvar</button>
+              <CustomButton loading={isSubmitting} disabled={isSubmitting}>Salvar</CustomButton>
             </div>
           </form>)}
       </Formik>
-
     </div>
   </div>)
 }
+
 export default CategoryFormPage;

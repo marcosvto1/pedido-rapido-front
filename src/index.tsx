@@ -5,6 +5,9 @@ import App from './App';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -16,3 +19,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+
+
+serviceWorkerRegistration.unregister();

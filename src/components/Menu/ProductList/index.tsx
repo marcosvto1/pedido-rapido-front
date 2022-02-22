@@ -22,7 +22,7 @@ const ProductList = ({ category }: { category: number }) => {
 
 
   if (loading) {
-    return <div className="loading" >
+    return <div className="menu-loading" >
       <div className="flex">
         <div className="animate-bounce">
           <img src={Logo} width={100} alt="carregando"/>
@@ -32,7 +32,7 @@ const ProductList = ({ category }: { category: number }) => {
   }
 
   return <>
-    <div className="ml-24 md:ml-40 overflow-y-auto flex-1 grid xl:grid-cols-4 md:grid-cols-4 p-8 gap-4">
+    <div className="ml-24 md:ml-40 overflow-y-auto grid xl:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 p-8 gap-4 place-items-stretch ">
       {products.map((product) => {
         return <ProductItem key={product.id} product={product} />
       })}

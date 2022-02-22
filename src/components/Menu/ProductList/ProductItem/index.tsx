@@ -28,8 +28,8 @@ const ProductItem = ({ product }: ProductItemProp) => {
   }
 
   return <>
-    <div className="card w-full md:w-full bg-base-100 h-full card-compact shadow-xl border-primary">
-      <figure><img src={product.image_url} alt="Shoes" /></figure>
+    <div className="card w-full md:w-full bg-base-100 card-compact shadow-xl border-primary">
+      <figure><img className="rounded" src={product.image_url} alt="Shoes"/></figure>
       <div className="card-body">
         <h2 className="card-title text-white">
           {product.name}
@@ -37,7 +37,7 @@ const ProductItem = ({ product }: ProductItemProp) => {
         <div tabIndex={0} className="collapse">
           <input type="checkbox" />
           <div className="collapse-title text-sm text-white">
-            Descrição
+            Ver mais...
           </div>
           <div className="collapse-content">
             <p>{product.description}</p>
